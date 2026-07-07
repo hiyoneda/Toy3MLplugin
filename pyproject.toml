@@ -1,0 +1,38 @@
+#[build-system]
+#requires = ["setuptools>=64", "wheel"]
+#build-backend = "setuptools.build_meta"
+
+[project]
+name = "Toy3MLPlugin"
+version = "0.1.0"
+description = "Minimal, complete forward-folding analysis library on top of 3ML/astromodels, with a toy scanning instrument and a cosipy image-deconvolution data interface. Teaching template for SMILE-3 / NinjaSat-2 style analyses."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Cosmic-ray Laboratory, Kyoto University" }]
+keywords = ["gamma-ray", "astronomy", "3ML", "forward folding", "image deconvolution", "cosipy"]
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "pyyaml",
+    "astromodels>=2.5",
+    "threeML>=2.5",
+]
+
+[project.optional-dependencies]
+# goal 5: image deconvolution is done by cosipy. Install this extra to enable
+# Toy3MLPlugin.cosipy_dataif (imports cosipy at runtime).
+cosipy = ["cosipy>=0.4"]
+# for running the example notebooks and the test suite
+dev = ["pytest", "jupyter", "nbclient", "nbformat", "matplotlib", "emcee", "corner"]
+
+#[tool.setuptools.packages.find]
+#include = ["Toy3MLPlugin*"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]

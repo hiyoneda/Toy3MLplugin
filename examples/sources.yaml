@@ -1,0 +1,18 @@
+# 点源リスト。foldlike.load_sources がこれを読んで astromodels.Model を組む。
+# スキャン座標を銀経 l に流用しているので、l が「どこでバンプが立つか」を決める。
+sources:
+  - name: SRC_A
+    position: {l: 8.0, b: 0.0}
+    spectrum:
+      shape: Powerlaw
+      params: {K: 1.0, index: -2.0}
+      free: [K]              # norm だけ自由、index は固定
+
+  - name: SRC_B
+    position: {l: 20.0, b: 0.0}
+    spectrum:
+      shape: Powerlaw
+      params: {K: 0.5, index: -2.0}
+      free: [K]
+
+diffuse: []                  # 背景は装置側で template を作って渡す

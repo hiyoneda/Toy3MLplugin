@@ -1,0 +1,26 @@
+# cosipy の ImageDeconvolution 用パラメータファイル(トイ版)。
+# 実物 (cosipy/test_data/.../imagedeconvolution_parfile_test.yml) と同じ構造。
+#   ImageDeconvolution().read_parameterfile(<this file>) → initialize() → run_deconvolution()
+
+model_definition:
+  class: "AllSkyImage"
+  property:
+    coordinate: "galactic"
+    nside: 4
+    scheme: "ring"
+    energy_edges:              # レスポンスの Ei と同じにする
+      value: [2.0, 10.0]
+      unit: "keV"
+    unit: "cm-2 s-1 sr-1"
+  initialization:
+    algorithm: "flat"          # 一様な初期モデル
+    parameter:
+      value: [1.0e-4]          # (エネルギービン数 = energy_edges - 1) 個
+      unit: "cm-2 s-1 sr-1"
+
+deconvolution:
+  algorithm: "RLbasic"         # RL / RLadvanced / MAP_RL などに差し替え可
+  parameter:
+    iteration_max: 100
+    background_normalization_optimization:
+      activate: True           # 背景 norm も一緒に最適化(トイ DataIF に inst 背景あり)
